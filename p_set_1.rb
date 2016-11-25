@@ -20,14 +20,20 @@ end
 SPACE =      " "
 BRICKS =     "#"
 APEX_WIDTH = 2
+MIN_HEIGHT = 0
+MAX_HEIGHT = 23
 
 def ask_height
   while true
     puts "height?"
     height = gets.chomp.to_i
-    break if height < 24
+    break if valid_input?(height)
   end
   height
+end
+
+def valid_input?(height)
+  height <= MAX_HEIGHT && height > MIN_HEIGHT
 end
 
 def calculate_row_length(height)
