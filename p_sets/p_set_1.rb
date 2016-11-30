@@ -4,7 +4,9 @@ BOTTLE_VOLUME = 16
 WATER_FLOW_RATE = 192
 
 def bottle_reporter
-  puts "That's #{bottle_calculator ask_minutes} bottles of water"
+  shower_length = ask_minutes
+  bottles = bottle_calculator(shower_length)
+  puts format("That's %i bottles of water", bottles)
 end
 
 def bottle_calculator(minutes)
@@ -17,11 +19,12 @@ def ask_minutes
 end
 
 # ITSA MARIO
-SPACE =      " "
-BRICKS =     "#"
-APEX_WIDTH = 2
-MIN_HEIGHT = 0
-MAX_HEIGHT = 23
+SPACE         =  " "
+BRICK         =  "#"
+APEX_WIDTH    =  2
+MIN_HEIGHT    =  0
+MAX_HEIGHT    =  23
+VALID_HEIGHTS =  MIN_HEIGHT..MAX_HEIGHT
 
 def ask_height
   while true
@@ -33,7 +36,7 @@ def ask_height
 end
 
 def valid_input?(height)
-  height <= MAX_HEIGHT && height > MIN_HEIGHT
+  VALID_HEIGHTS.include? height
 end
 
 def calculate_row_length(height)
@@ -41,14 +44,15 @@ def calculate_row_length(height)
 end
 
 def pyramid_printer(row_length)
-  n = APEX_WIDTH
-  for n in n..row_length
-    puts SPACE * (row_length - n) + BRICKS * n
+  APEX_WIDTH.upto(row_length) do |bricks_in_row|
+    puts SPACE * ( row_length - bricks_in_row ) + BRICK * bricks_in_row
   end
 end
 
 def mario
-  pyramid_printer calculate_row_length ask_height
+  height = ask_height
+  row_length = calculate_row_length(height)
+  pyramid_printer(row_length)
 end
 
 #TIMEFORCHANGE
@@ -68,8 +72,7 @@ end
 def calculate_coins(pence)
   n = COINS.count
   coins = []
-  for n in 0..n-1
-    denomination = COINS[n]
+  COINS.each do |denomination|
     quantity = pence / denomination
     pence -= (denomination * quantity)
     coins << quantity
