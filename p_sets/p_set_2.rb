@@ -1,3 +1,5 @@
+# http://cdn.cs50.net/2016/x/psets/2/pset2/pset2.html
+
 # INITIALIZING
 # You may assume that the users input will contain only letters
 # (uppercase and/or lowercase) plus single spaces between words.
@@ -15,7 +17,7 @@ def initilize_name
 end
 
 def initial_printer
-  puts initilize_name
+  puts format('%s',initilize_name)
 end
 
 initial_printer

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite time='0.026635' skipped='0' failures='1' errors='0' name="CaesarProgramTest" assertions='4' tests='1'>
+  <testcase time='0.026635' file="p_sets/caesar_test.rb" name="test_encrypt" assertions='4'>
+    <failure type='Minitest::Assertion' message="encryption works at end of alphabet.&#13;&#10;--- expected&#13;&#10;+++ actual&#13;&#10;@@ -1 +1,2 @@&#13;&#10;-&quot;bcde&quot;&#13;&#10;+# encoding: US-ASCII&#13;&#10;+&quot;|}~\\x7F&quot;&#13;&#10;">p_sets/caesar_test.rb:21:in `test_encrypt&#39;
+    </failure>
+  </testcase>
+</testsuite>
