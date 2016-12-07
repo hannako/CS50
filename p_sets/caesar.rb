@@ -8,40 +8,39 @@
 # you may not assume that k will be less than or equal to 26
 #  should work for all non-negative ints less than 2v31 - 26
 class Caesar
-  ASCII_CAPITALS = (65..90)
-  ASCII_LOWERCASE = (97..122)
   ASCII_LETTERS = {
-    capitals: ASCII_CAPITALS,
-    lowercase: ASCII_LOWERCASE
+    capitals: (65..90),
+    lowercase: (97..122)
   }
 
-  def encrypt(plaintext, key)
-    encrypted_ascii = convert_letters_to_ascii(plaintext, key)
-    convert_ascii_to_text(encrypted_ascii)
+  def cyphertext_reporter(plaintext, integer)
+    puts format('%s', encrypt(plaintext, integer))
   end
 
-  def convert_letters_to_ascii(plaintext, key)
+  def encrypt(plaintext, integer)
+    key = make_key(integer)
+    encrypted_ascii = make_encrypted_ascii(plaintext, key)
+    make_cyphertext(encrypted_ascii)
+  end
+
+  def make_encrypted_ascii(plaintext, key)
     ascii = []
     plaintext.chars.each do |character|
       if letter?(character)
-        ascii << cipherize(character, key)
+        ascii << apply_key(character, key)
       else ascii << character
       end
     end
-    return ascii
+    ascii
   end
 
-  def cipherize(character, key)
+  def apply_key(character, key)
+    capital_letter?(character) ? size = :capitals : size = :lowercase
     ascii = character.ord + key
-    if capital_letter?(character)
-      ascii > ASCII_CAPITALS.max ? ascii - 26 : ascii
-    else
-      ascii > ASCII_LOWERCASE.max ? ascii - 26 : ascii
-    end
+    ascii > ASCII_LETTERS[size].max ? ascii - 26 : ascii
   end
 
-
-  def convert_ascii_to_text(ascii)
+  def make_cyphertext(ascii)
     cyphertext = []
     ascii.each do |integer|
       cyphertext << integer.chr
@@ -61,4 +60,21 @@ class Caesar
     ASCII_LETTERS[:lowercase].cover?(character.ord)
   end
 
+  def make_key(integer)
+    integer % 26
+  end
+
+  def run
+    integer = ARGV.first.to_i
+    if integer > 0
+      puts "text?"
+      plaintext = STDIN.gets.chomp
+      cyphertext_reporter(plaintext, integer)
+    else
+      puts '1'
+    end
+  end
+
 end
+
+Caesar.new.run

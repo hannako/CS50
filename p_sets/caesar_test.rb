@@ -20,6 +20,8 @@ class CaesarProgramTest < Minitest::Test
                   'encryption works at end of alphabet'
     assert_equal  'B^^123e', @caesar.encrypt('W^^123z', 5),
                   'encryption works at end of alphabet'
+    assert_equal 'abc', @caesar.encrypt('zab', 27),
+                  'accepts integers greater than 26'
 
   end
 end
