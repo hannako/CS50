@@ -9,23 +9,9 @@
 # a non-alphabetical character, you must wait to apply it
 # to the next alphabetical character. Do not advance
 # to the next character in k.
-
+require_relative 'encryption'
 class Vigenere
-  ASCII_LETTERS = {
-    capitals: (65..90),
-    lowercase: (97..122)
-  }
-
-  def cyphertext_reporter(plaintext, integer)
-    puts format('%s', encrypt(plaintext, integer))
-  end
-
-  def encrypt(plaintext, string)
-    key = make_key(string)
-    encrypted_ascii = make_encrypted_ascii(plaintext, key)
-    make_cyphertext(encrypted_ascii)
-  end
-
+  include Encryption
 
   def make_key(string)
     key = []
@@ -35,7 +21,12 @@ class Vigenere
     key
   end
 
-  # HOOOOORRRRRRROOORRRRRR
+  def apply_key(character, key, index)
+    capital_letter?(character) ? size = :capitals : size = :lowercase
+    ascii = character.ord + key[index].to_i
+    ascii > ASCII_LETTERS[size].max ? ascii - 26 : ascii
+  end
+
   def make_encrypted_ascii(plaintext, key)
     ascii = []
     index = 0
@@ -50,34 +41,8 @@ class Vigenere
     ascii
   end
 
-  def make_cyphertext(ascii)
-    cyphertext = []
-    ascii.each do |integer|
-      cyphertext << integer.chr
-    end
-    cyphertext.join
-  end
-
-  def apply_key(character, key, index)
-    capital_letter?(character) ? size = :capitals : size = :lowercase
-    ascii = character.ord + key[index].to_i
-    ascii > ASCII_LETTERS[size].max ? ascii - 26 : ascii
-  end
-
-  def letter?(character)
-    capital_letter?(character) || lowercase_letter?(character)
-  end
-
-  def capital_letter?(character)
-    ASCII_LETTERS[:capitals].cover?(character.ord)
-  end
-
-  def lowercase_letter?(character)
-    ASCII_LETTERS[:lowercase].cover?(character.ord)
-  end
-
   def valid?(string)
-    (string == string.gsub(/[^a-zA-Z]/, ''))
+    string.index(/[^a-zA-Z]/).nil?
   end
 
   def run
