@@ -25,7 +25,7 @@ class Caesar
 
   def make_encrypted_ascii(plaintext, key)
     ascii = []
-    plaintext.chars.each do |character|
+    plaintext.each_char do |character|
       if letter?(character)
         ascii << apply_key(character, key)
       else ascii << character
@@ -39,6 +39,13 @@ class Caesar
     ascii = character.ord + key
     ascii > ASCII_LETTERS[size].max ? ascii - 26 : ascii
   end
+
+  # def apply_key(character, key)
+  #   ascii = character.ord + key
+  #   capital_letter?(character) ? size = :capitals : size = :lowercase
+  #   ASCII_LETTERS[size].min + (ascii % ASCII_LETTERS[size].max) - 1
+  # end
+
 
   def make_cyphertext(ascii)
     cyphertext = []
