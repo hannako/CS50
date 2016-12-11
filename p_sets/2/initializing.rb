@@ -9,11 +9,7 @@ def ask_name
 end
 
 def initialize_name(full_name)
-  initials =
-    full_name.split.map do |name|
-    name.chr.upcase
-    end
-  initials.join('')
+  full_name.split.map(&:chr).join.upcase
 end
 
 def initial_printer
