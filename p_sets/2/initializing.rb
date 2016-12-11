@@ -8,16 +8,18 @@ def ask_name
   gets.chomp
 end
 
-def initilize_name
-  initials = ''
-  ask_name.split.each do |word|
-    initials += word.chr.upcase
-  end
-  initials
+def initialize_name(full_name)
+  initials =
+    full_name.split.map do |name|
+    name.chr.upcase
+    end
+  initials.join('')
 end
 
 def initial_printer
-  puts format('%s',initilize_name)
+  name = ask_name
+  initials = initialize_name(name)
+  puts initials
 end
 
 initial_printer
