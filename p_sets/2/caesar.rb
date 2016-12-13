@@ -11,19 +11,18 @@ require_relative 'encryption'
 class Caesar
   include Encryption
 
-  def make_key(integer)
-    integer % 26
+  def valid_key(key)
+    key % 26
   end
 
   def make_encrypted_ascii(plaintext, key)
-    ascii = []
-    plaintext.each_char do |character|
+    plaintext.chars.map do |character|
       if letter?(character)
-        ascii << apply_key(character, key)
-      else ascii << character
+        apply_key(character, key)
+      else
+        character
       end
     end
-    ascii
   end
 
   def run
@@ -33,10 +32,14 @@ class Caesar
       plaintext = STDIN.gets.chomp
       cyphertext_reporter(plaintext, integer)
     else
-      puts 1.to_s
+      false
     end
   end
 
 end
 
-Caesar.new.run
+if Caesar.new.run
+  exit 0
+else
+  exit 1
+end

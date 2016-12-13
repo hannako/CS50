@@ -14,8 +14,8 @@ class VigenereTestProgram < Minitest::Test
     refute @vigenere.valid?('h3ll0')
   end
 
-  def test_make_key
-    assert_equal [0, 1, 2, 3, 4, 5], @vigenere.make_key('ABCDEF')
+  def test_valid_key
+    assert_equal [0, 1, 2, 3, 4, 5], @vigenere.valid_key('ABCDEF')
   end
 
   def test_make_encrypted_ascii

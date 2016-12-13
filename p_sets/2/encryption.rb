@@ -5,28 +5,23 @@ module Encryption
     lowercase: (97..122)
   }
 
-  def cyphertext_reporter(plaintext, integer)
-    puts format('%s', encrypt(plaintext, integer))
+  def cyphertext_reporter(plaintext, key)
+    puts encrypt(plaintext, key)
   end
 
-  def encrypt(plaintext, string)
-    key = make_key(string)
+  def encrypt(plaintext, key)
+    key = valid_key(key)
     encrypted_ascii = make_encrypted_ascii(plaintext, key)
     make_cyphertext(encrypted_ascii)
   end
 
   def apply_key(character, key)
-    capital_letter?(character) ? size = :capitals : size = :lowercase
-    ascii = character.ord + key
-    ascii > ASCII_LETTERS[size].max ? ascii - 26 : ascii
+    size = capital_letter?(character) ? :capitals: :lowercase
+    ((key + character.ord - ASCII_LETTERS[size].min) % 26) + ASCII_LETTERS[size].min
   end
 
   def make_cyphertext(ascii)
-    cyphertext = []
-    ascii.each do |integer|
-      cyphertext << integer.chr
-    end
-    cyphertext.join
+    ascii.map(&:chr).join
   end
 
   def letter?(character)

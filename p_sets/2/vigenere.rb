@@ -13,49 +13,49 @@ require_relative 'encryption'
 class Vigenere
   include Encryption
 
-  def make_key(string)
-    key = []
-    string.upcase.each_char do |letter|
-      key << letter.ord - ASCII_LETTERS[:capitals].min
+  def valid_key(key)
+    key.chars.map do |letter|
+      letter.upcase.ord - ASCII_LETTERS[:capitals].min
     end
-    key
   end
 
   def apply_key(character, key, index)
-    capital_letter?(character) ? size = :capitals : size = :lowercase
+    size = capital_letter?(character) ? :capitals : :lowercase
     ascii = character.ord + key[index].to_i
     ascii > ASCII_LETTERS[size].max ? ascii - 26 : ascii
   end
 
   def make_encrypted_ascii(plaintext, key)
-    ascii = []
-    index = 0
-    plaintext.each_char do |character|
+    index = -1
+    plaintext.chars.map do |character|
       if letter?(character)
-        ascii << apply_key(character, key, index)
-        index < key.length - 1 ? index += 1 : index = 0
+        index = (index + 1) % key.length
+        apply_key(character, key, index)
       else
-        ascii << character
+        character
       end
     end
-    ascii
   end
 
   def valid?(string)
-    string.index(/[^a-zA-Z]/).nil?
+    !/[^a-zA-Z]/.match(string)
   end
 
   def run
-    string = ARGV.first
-    if string.nil? || !ARGV.count == 1 || !valid?(string)
-      puts 1.to_s
+    key = ARGV.first
+    if key.nil? || !ARGV.count == 1 || !valid?(key)
+      false
     else
-      puts "text?"
+      puts 'text?'
       plaintext = STDIN.gets.chomp
-      cyphertext_reporter(plaintext, string)
+      cyphertext = encrypt(plaintext, key)
+      puts cyphertext
     end
   end
-
 end
 
-Vigenere.new.run
+if Vigenere.new.run
+  exit 0
+else
+  exit 1
+end
