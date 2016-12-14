@@ -8,14 +8,20 @@
 # you may not assume that k will be less than or equal to 26
 #  should work for all non-negative ints less than 2v31 - 26
 require_relative 'encryption'
+
 class Caesar
   include Encryption
+  attr_reader :key
 
-  def valid_key(key)
+  def self.valid_key(key)
     key % 26
   end
 
-  def make_encrypted_ascii(plaintext, key)
+  def initialize(key)
+    @key = Caesar.valid_key(key)
+  end
+
+  def make_encrypted_ascii(plaintext)
     plaintext.chars.map do |character|
       if letter?(character)
         apply_key(character, key)
@@ -24,22 +30,20 @@ class Caesar
       end
     end
   end
+end
 
-  def run
-    integer = ARGV.first.to_i
-    if integer > 0
-      puts 'text?'
-      plaintext = STDIN.gets.chomp
-      cyphertext_reporter(plaintext, integer)
-    else
-      false
-    end
+def main
+  key = ARGV.first.to_i
+
+  if key > 0
+    puts 'text?'
+    plaintext = STDIN.gets.chomp
+    cipher = Caesar.new(key)
+    puts cipher.encrypt(plaintext)
+    exit 0
+  else
+    exit 1
   end
-
 end
 
-if Caesar.new.run
-  exit 0
-else
-  exit 1
-end
+main
