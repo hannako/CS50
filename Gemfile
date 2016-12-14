@@ -2,4 +2,6 @@
 # A sample Gemfile
 source "https://rubygems.org"
 
-gem "RSpec"
+gem "minitest"
+gem "minitest-documentation"
+gem "minitest-reporters"

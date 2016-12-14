@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite time='0.000123' skipped='0' failures='0' errors='0' name="CaesarProgramTest" assertions='6' tests='1'>
+  <testcase time='0.000123' file="p_sets/2/caesar_test.rb" name="test_encrypt" assertions='6'>
+  </testcase>
+</testsuite>
