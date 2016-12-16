@@ -24,7 +24,7 @@ def main
     generate = RandomArrayGenerator.new(length, seed.first)
     unless seed.empty? then generate.seed_rand
     end
-    puts generate.array
+    generate.array
   end
 end
 
