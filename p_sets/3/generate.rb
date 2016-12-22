@@ -16,16 +16,11 @@ class RandomArrayGenerator
   end
 end
 
-def main
-  if ARGV.count > 2 || ARGV.empty?
-    exit 1
-  else
-    length, *seed = ARGV.map(&:to_i)
-    generate = RandomArrayGenerator.new(length, seed.first)
-    unless seed.empty? then generate.seed_rand
-    end
-    generate.array
-  end
+if ARGV.count > 2 || ARGV.empty?
+  exit 1
+else
+  length, seed = ARGV.map(&:to_i)
+  generate = RandomArrayGenerator.new(length, seed)
+  generate.seed_rand unless seed.nil?
+  puts generate.array
 end
-
-main
