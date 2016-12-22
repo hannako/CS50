@@ -22,5 +22,5 @@ else
   length, seed = ARGV.map(&:to_i)
   generate = RandomArrayGenerator.new(length, seed)
   generate.seed_rand unless seed.nil?
-  puts generate.array
+  print generate.array
 end
