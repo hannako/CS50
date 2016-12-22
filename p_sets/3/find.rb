@@ -1,16 +1,21 @@
-class Find
+# This program
+# expects a single command-line argument:
+# a "needle" to search for in a "haystack" of values.
 
-  def search(needle, hay)
-    hay.include? needle
+# require_relative 'generate'
+
+module Finder
+  def self.search(needle, hay)
+    puts hay.include? needle
   end
-
 end
 
-def main
-  needle, *hay = ARGV.map(&:to_i)
-  finder = Find.new
-  # puts "needle: #{needle}"
-  # puts "hay: #{hay}"
-  puts finder.search(needle, hay)
+needle = ARGV.first(&:to_i)
+hay = []
+loop do
+  puts 'hay?'
+  straw = STDIN.gets.chomp
+  hay << straw
+  break if straw == ''
 end
-main
+Finder.search(needle, hay)
