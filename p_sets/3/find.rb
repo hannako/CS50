@@ -1,16 +1,15 @@
 module Finder
+
   def self.ruby_search(needle, hay)
     puts hay.include? needle
   end
 
   def self.linear_search(needle, hay)
+    @result = false
     for i in 0..hay.length - 1
-      if hay[i] == needle
-        puts "true"
-      else
-        i += 1
-      end
+      hay[i] == needle ? @result = true : i += 1
     end
+    puts @result.to_s
   end
 end
 
@@ -26,7 +25,7 @@ end
 #   hay << straw
 #   break if straw == ''
 # end
-# Finder.search(needle, hay)
+# Finder.linear_search(needle, hay)
 
 # second challenge: Hay can be piped in from generate.rb
 # via the command-line.
