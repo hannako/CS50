@@ -1,5 +1,3 @@
-require 'io/console'
-
 class RandomArrayGenerator
   EXPONENT = 10**3
   attr_reader :length, :seed
