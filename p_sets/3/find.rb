@@ -1,15 +1,22 @@
 module Finder
-  def self.search(needle, hay)
+  def self.ruby_search(needle, hay)
     puts hay.include? needle
+  end
+
+  def self.linear_search(needle, hay)
+    for i in 0..hay.length - 1
+      if hay[i] == needle
+        puts "true"
+      else
+        i += 1
+      end
+    end
   end
 end
 
-# The following code addresses the first step of the task,
-# i.e. Finder expects a single command-line argument
+# first challenge: Finder expects a single command-line argument
 # a "needle" to search for in a "haystack" of values.
-# You’ll be prompted to provide some hay (i.e., some integers),
-# one "straw" at a time. As soon as you tire of providing integers,
-# hit ctrl-d to send the program an EOF(end-of-file) character.
+# Prompt to provide some hay (i.e, integers) one "straw" at a time.
 
 # needle = ARGV.first(&:to_i)
 # hay = []
@@ -21,8 +28,13 @@ end
 # end
 # Finder.search(needle, hay)
 
+# second challenge: Hay can be piped in from generate.rb
+# via the command-line.
+# Eg ruby p_sets/3/generate.rb 10 10| ruby p_sets/3/find.rb 21
+
 needle = ARGV.first(&:to_i)
-hay = STDIN.gets
-puts "needle: #{needle}"
-puts "hay: #{hay}"
-Finder.search(needle, hay)
+
+hay = STDIN.gets.split(' ')
+puts "needle:" + needle.to_s
+puts "hay:" + hay.to_s
+Finder.linear_search(needle, hay)

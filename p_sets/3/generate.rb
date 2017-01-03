@@ -1,3 +1,5 @@
+require 'io/console'
+
 class RandomArrayGenerator
   EXPONENT = 10**3
   attr_reader :length, :seed
@@ -22,5 +24,5 @@ else
   length, seed = ARGV.map(&:to_i)
   generate = RandomArrayGenerator.new(length, seed)
   generate.seed_rand unless seed.nil?
-  print generate.array
+  puts generate.array.join " "
 end
