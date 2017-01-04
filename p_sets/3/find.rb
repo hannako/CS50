@@ -5,12 +5,16 @@ module Finder
   end
 
   def self.linear_search(needle, hay)
-    @result = false
-    for i in 0..hay.length - 1
-      hay[i] == needle ? @result = true : i += 1
+    n       = hay.length
+    result  = false
+    (n - 1).times do |i|
+      result = true if hay[i] == needle
     end
-    puts @result.to_s
+    puts result.to_s
   end
+
+
+
 end
 
 # first challenge: Finder expects a single command-line argument
