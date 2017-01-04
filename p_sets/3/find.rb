@@ -1,5 +1,4 @@
 module Finder
-
   def self.linear_search(needle, hay)
     max_index   = hay.length - 1
     result      = false
@@ -12,8 +11,8 @@ module Finder
   def self.binary_search(needle, hay)
     mid_point = (hay.length - 1) / 2
     max_point = hay.length - 1
-    left_side = [0..mid_point]
-    right_side = [(mid_point + 1)..max_point]
+    left_side = 0..mid_point
+    right_side = (mid_point + 1)..max_point
 
     if needle < hay[0] || needle > hay[max_point]
       result = false
@@ -44,7 +43,6 @@ module Finder
     end
     array
   end
-
 end
 
 needle = ARGV.first.to_i
