@@ -1,6 +1,6 @@
 class RandomArrayGenerator
   EXPONENT = 10**3
-  attr_reader :length, :seed
+  attr_reader :length
 
   def initialize(length, seed = nil)
     @length = length
