@@ -4,23 +4,19 @@ class RandomArrayGenerator
 
   def initialize(length, seed = nil)
     @length = length
-    @seed = seed
+    srand(seed) if seed
   end
 
   def array
     Array.new(length) { (rand * EXPONENT).ceil }
   end
 
-  def seed_rand
-    srand seed
-  end
 end
 
-if ARGV.count > 2 || ARGV.empty?
-  exit 1
+if ARGV.count > 2 || ARGV.count < 1
+  raise "Error: Wrong number of arguments, expecting 1 or 2 "
 else
   length, seed = ARGV.map(&:to_i)
   generate = RandomArrayGenerator.new(length, seed)
-  generate.seed_rand unless seed.nil?
   puts generate.array.join " "
 end

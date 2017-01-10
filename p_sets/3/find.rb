@@ -1,31 +1,32 @@
 module Finder
   def self.linear_search(needle, hay)
-    max_index   = hay.length - 1
+    max_index   = hay.length > 1 ? hay.length - 1 : 1
     result      = false
     max_index.times do |i|
-      result = true if hay[i] == needle
+      if hay[i] == needle
+        result = true
+        break
+      end
     end
-    puts result.to_s
+    result
   end
 
   def self.binary_search(needle, hay)
-    mid_point = (hay.length - 1) / 2
+    mid_point = hay.length == 1 ? 0 : (hay.length - 1) / 2
     max_point = hay.length - 1
-    left_side = 0..mid_point
+    left_side = 0...mid_point
     right_side = (mid_point + 1)..max_point
-
     if needle < hay[0] || needle > hay[max_point]
-      result = false
+      return false
     else
       if needle < hay[mid_point]
         binary_search(needle, hay[left_side])
       elsif needle > hay[mid_point]
         binary_search(needle, hay[right_side])
       else
-        result = hay[mid_point]
+        hay[mid_point]
       end
     end
-    puts result.to_s
   end
 
   def self.bubble_sort(array, length)
@@ -38,7 +39,6 @@ module Finder
           switched = true
         end
       end
-
       break unless switched
     end
     array
@@ -52,5 +52,5 @@ sorted_hay = Finder.bubble_sort(unsorted_hay, unsorted_hay.length)
 puts "needle: " + needle.to_s
 puts "hay: " + sorted_hay.to_s
 print "present? "
-Finder.binary_search(needle, sorted_hay)
-# Finder.linear_search(needle, unsorted_hay)
+puts Finder.binary_search(needle, sorted_hay)
+puts Finder.linear_search(needle, unsorted_hay)
