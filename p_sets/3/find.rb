@@ -10,20 +10,36 @@ module Finder
     result
   end
 
-  def self.binary_search(needle, hay)
-    mid_point = (hay.length - 1) / 2
-    max_point = hay.length - 1
+  def self.binary_search_returning_value(needle, hay)
+    max_point = hay.size - 1
+    mid_point = (0 + max_point) / 2
     left_side = 0...mid_point
     right_side = (mid_point + 1)..max_point
     if needle < hay[0] || needle > hay[max_point]
-      return false
+      false
     else
       if needle < hay[mid_point]
-        binary_search(needle, hay[left_side])
+        binary_search_returning_value(needle, hay[left_side])
       elsif needle > hay[mid_point]
-        binary_search(needle, hay[right_side])
+        binary_search_returning_value(needle, hay[right_side])
       else
         hay[mid_point]
+      end
+    end
+  end
+
+  def self.binary_search_returning_index(needle, hay, start = 0, finish = nil)
+    finish ||= hay.size - 1
+    if needle < hay[start] || needle > hay[finish]
+      false
+    else
+      mid_point = (start + finish) / 2
+      if needle < hay[mid_point]
+        binary_search_returning_index(needle, hay, start, mid_point - 1)
+      elsif needle > hay[mid_point]
+        binary_search_returning_index(needle, hay, mid_point + 1, finish)
+      else
+        mid_point
       end
     end
   end
@@ -51,5 +67,5 @@ end
 # puts "needle: " + needle.to_s
 # puts "hay: " + sorted_hay.to_s
 # print "present? "
-# puts Finder.binary_search(needle, sorted_hay)
+# puts Finder.binary_search_returning_index(needle, sorted_hay)
 # puts Finder.linear_search(needle, unsorted_hay)
